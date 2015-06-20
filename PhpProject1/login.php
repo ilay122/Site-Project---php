@@ -13,28 +13,28 @@ if(isset($_POST['submit'])) {
     mysql_select_db("test");
     $username=$_POST["username"];
     $password=$_POST["password"];
-    if(strpos($username, "'") !== FALSE || strpos($username, "'") !== FALSE){
-        $error="stop haxoring";
+    
+    $password=htmlspecialchars($password, ENT_QUOTES);
+    $username=htmlspecialchars($username, ENT_QUOTES);
+
+    $query="SELECT * FROM `protable` WHERE userN='$username' AND userP='$password'";
+    $bla=mysql_query($query);
+    $result= mysql_num_rows($bla);
+    if($result>0){
+        session_start();
+        $_SESSION["user"]=$username;
+        $row=mysql_fetch_row($bla);
+        if($row[3] ==="true"){
+            $_SESSION["admin"]="ye y no";
+        }
+        header("Location: http://localhost:12345/index.php");
+        die();
     }
     else{
-        $query="SELECT * FROM `protable` WHERE userN='$username'";
-        $bla=mysql_query($query);
-        $result= mysql_num_rows($bla);
-        if($result>0){
-            session_start();
-            $_SESSION["user"]=$username;
-            $row=mysql_fetch_row($bla);
-            if($row[3] ==="true"){
-                $_SESSION["admin"]="ye y no";
-            }
-            header("Location: http://localhost:12345/index.php");
-            die();
-        }
-        else{
-            $error="<p style='color:red'>username not found.</p> <br />";
-        }
+        $error="<p style='color:red'>username not found.</p> <br />";
     }
 }
+
 
 ?>
 

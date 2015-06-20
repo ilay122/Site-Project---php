@@ -4,7 +4,9 @@ session_start();
 mysql_select_db("test");
 
 if(isset($_POST["delete"])){
-    $query="DELETE FROM `protable` WHERE userN='".$_POST["delete"]."'";
+    $where=$_POST["delete"];
+    $where=htmlspecialchars($where, ENT_QUOTES);
+    $query="DELETE FROM `protable` WHERE userN='$where'";
     mysql_query($query);
     $_SESSION["write"]="user deleted !";
     
@@ -15,6 +17,11 @@ else if(isset($_POST["submit"])){
     $password=$_POST["password"];
     $email=$_POST["email"];
     $admin="";
+    
+    $password=htmlspecialchars($password, ENT_QUOTES);
+    $where=htmlspecialchars($where, ENT_QUOTES);
+    $email=htmlspecialchars($email, ENT_QUOTES);
+    $username=htmlspecialchars($username, ENT_QUOTES);
     
     if(isset($_POST["isadmin"])){
         $admin="true";
