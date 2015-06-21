@@ -94,11 +94,6 @@ require 'masterHead.php';
     </script>
 <div id="content">
     <ul id="errors">
-        <?php
-        if(isset($error)){
-            echo $error;
-        }
-        ?>
     </ul>
 
 
