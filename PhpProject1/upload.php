@@ -17,14 +17,16 @@ function randomStr(){
     for($i=0;$i<11;$i++){
         $ret.=$chars[rand(0, strlen($chars))];
     }
-    return $ret.'.jpg';
+    return $ret;
 }
 
 if(isset($_POST["submit"])) {
     
     $random= randomStr();
+    $mainname= $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $target_file = $target_dir ."$random";
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    $imageFileType = pathinfo($mainname,PATHINFO_EXTENSION);
+    $target_file.=$imageFileType;
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
         $usermsg= "File is an image - " . $check["mime"] . ".";
