@@ -17,14 +17,14 @@ function randomStr(){
     for($i=0;$i<11;$i++){
         $ret.=$chars[rand(0, strlen($chars))];
     }
-    return $ret;
+    return $ret.".";
 }
 
 if(isset($_POST["submit"])) {
     
     $random= randomStr();
     $mainname= $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $target_file = $target_dir ."$random";
+    $target_file = $target_dir .$random;
     $imageFileType = pathinfo($mainname,PATHINFO_EXTENSION);
     $target_file.=$imageFileType;
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -40,20 +40,18 @@ if(isset($_POST["submit"])) {
         $uploadOk = 0;
     }
 
-    if ($_FILES["fileToUpload"]["size"] > 500000) {
+    else if ($_FILES["fileToUpload"]["size"] > 50000000) {
         $usermsg= "Sorry, your file is too large.";
         $uploadOk = 0;
     }
 
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-        $usermsg= "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    else if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" && $imageFileType !="bmp") {
+        $usermsg= "Sorry, only JPG, JPEG, PNG, GIF & BMP files are allowed.";
         $uploadOk = 0;
     }
-    if ($uploadOk == 0) {
-        $usermsg= "Sorry, your file was not uploaded.";
-
-    } else {
+    
+    if ($uploadOk != 0) {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
             $usermsg= "The file has been uploaded.";
         } else {
@@ -61,7 +59,6 @@ if(isset($_POST["submit"])) {
         }
     }
 }
-
 
 ?>
 
