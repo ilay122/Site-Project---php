@@ -11,6 +11,7 @@ body { /*main*/
     padding: 1px;
 }
 
+
 #nav ul li, #nav ul li a { /*navigation*/
     display: inline;
     padding-right: 25px;
@@ -24,8 +25,8 @@ body { /*main*/
 
 }
 #pictures img{
-    width: 250px;
-    height: 250px;
+    width: 500px;
+    height: 500px;
 }
 
     .active, #nav ul li a:hover { /*navigation*/
@@ -110,7 +111,9 @@ p {
     font-family: Arial;
     font-size: 20px;
 }
-
+p .comment{
+    width:500px;
+}
 h1 {
     font-family: Arial;
     color: gray;

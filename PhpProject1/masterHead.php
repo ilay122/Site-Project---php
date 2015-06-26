@@ -46,21 +46,7 @@ $ProtectedLink="";
             /* end of time updating*/
 
             //$(".mainpagepic").draggable();
-            <?php
-                if(isset($_SESSION["admin"])){
-                    echo "$('.mainpagepic').click(function () {
-                        var confirmed=confirm('are u sure u want to delete this picture ?');
-                        if(confirmed){
-                            var superconfrim=confirm('are u sure ?????????');
-                            if(superconfrim){
-                                var src=$(this).attr('src');
-                                console.log(src);
-                                window.location='http://localhost:12345/deletepic.php?src='+src;
-                                }
-                            }
-                    });";
-                }
-            ?>
+            
         });
     </script>
 </head>

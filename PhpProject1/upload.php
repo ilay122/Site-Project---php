@@ -17,7 +17,7 @@ function randomStr(){
     for($i=0;$i<11;$i++){
         $ret.=$chars[rand(0, strlen($chars))];
     }
-    return $ret.".";
+    return $ret;
 }
 
 if(isset($_POST["submit"])) {
@@ -26,7 +26,7 @@ if(isset($_POST["submit"])) {
     $mainname= $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $target_file = $target_dir .$random;
     $imageFileType = pathinfo($mainname,PATHINFO_EXTENSION);
-    $target_file.=$imageFileType;
+    $target_file.=".".$imageFileType;
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
         $usermsg= "File is an image - " . $check["mime"] . ".";
@@ -53,6 +53,14 @@ if(isset($_POST["submit"])) {
     
     if ($uploadOk != 0) {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            $txtfile=fopen("Images/pegs/$random.txt", "w");
+            $title=$_POST["title"];
+            $title=htmlspecialchars($title, ENT_QUOTES);
+            fwrite($txtfile,"$title\n");
+            fwrite($txtfile,"$target_file\n");
+            $user=$_SESSION["user"];
+            $user.="\n";
+            fwrite($txtfile,$user);
             $usermsg= "The file has been uploaded.";
         } else {
             $usermsg= "Sorry, there was an error uploading your file.";
@@ -67,9 +75,11 @@ require 'masterHead.php';
 ?>
     <div id="content">
         <form action="upload.php" method="post" enctype="multipart/form-data">
+            Title:
+            <input type="text" autocomplete="off" name="title" required> <br /><br />
             Select image to upload:<br />
-            <input class="tfbutton" type="file" name="fileToUpload" id="fileToUpload">
-            <br />
+            <input class="tfbutton"autocomplete="off" type="file" name="fileToUpload" id="fileToUpload">
+            <br /><br />
             <input class="tfbutton" type="submit" value="Upload Image" name="submit">
         </form>
         <?php
