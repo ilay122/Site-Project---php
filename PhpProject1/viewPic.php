@@ -23,11 +23,11 @@ require 'masterHead.php';
     $txtfile=$path.$picwoebd.".txt";
     $myfile = fopen($txtfile, "r") or die("Unable to open file!");
     $text= fread($myfile,filesize($txtfile));
-    $parts=  explode("\n", $text); //[0]-title [1]-src of pic [2]-writer
+    $parts=  explode("\n", $text); //[1]-title [2]-src of pic [3]-writer
     
-    echo "<h2> $parts[0]</h2> <br />";
-    echo "<img src='$parts[1]' width='500px' /> <br />";
-    echo "<h3>Uploaded by $parts[2] </h3>";
+    echo "<h2> $parts[1]</h2> <br />";
+    echo "<img src='$parts[2]' width='500px' /> <br />";
+    echo "<h3>Uploaded by $parts[3] </h3>";
     
     if(isset($_SESSION["user"])){
         if(isset($_SESSION["msg"])){
@@ -41,7 +41,7 @@ require 'masterHead.php';
         echo "</form>";
         echo "<br />";
     }
-    for($i=3;$i<count($parts);$i++){
+    for($i=4;$i<count($parts);$i++){
         echo $parts[$i];
     }
     echo "<br />";

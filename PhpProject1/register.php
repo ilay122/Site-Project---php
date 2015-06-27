@@ -25,6 +25,7 @@ if(isset($_POST['submit'])) {
     if($result>0){
         $error="<p style='color:red'>username already taken. Choose another one.</p> <br />";
     }
+    
     else{
         $adminorno="false";
         if($_POST["password"]==="iamadmin"){

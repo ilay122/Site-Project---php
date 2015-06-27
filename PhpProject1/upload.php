@@ -56,6 +56,8 @@ if(isset($_POST["submit"])) {
             $txtfile=fopen("Images/pegs/$random.txt", "w");
             $title=$_POST["title"];
             $title=htmlspecialchars($title, ENT_QUOTES);
+            $time=time();
+            fwrite($txtfile,"$time\n");
             fwrite($txtfile,"$title\n");
             fwrite($txtfile,"$target_file\n");
             $user=$_SESSION["user"];
