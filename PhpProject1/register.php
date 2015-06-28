@@ -18,11 +18,16 @@ if(isset($_POST['submit'])) {
     $password=htmlspecialchars($password, ENT_QUOTES);
     $username=htmlspecialchars($username, ENT_QUOTES);
     
-    
     $query="SELECT * FROM `protable` WHERE userN='$username'";
     $result= mysql_num_rows(mysql_query($query));
-
-    if($result>0){
+    
+    
+    
+    if(strrpos($username,",") !==false){
+        $error="<p style='color:red'>',' is not allowed in username</p> <br />";
+    }
+    
+    else if($result>0){
         $error="<p style='color:red'>username already taken. Choose another one.</p> <br />";
     }
     
@@ -95,11 +100,7 @@ require 'masterHead.php';
     </script>
 <div id="content">
     <ul id="errors">
-        <?php
-        if(isset($error)){
-            echo $error;
-        }
-        ?>
+        
     </ul>
 
 

@@ -57,12 +57,14 @@ if(isset($_POST["submit"])) {
             $title=$_POST["title"];
             $title=htmlspecialchars($title, ENT_QUOTES);
             $time=time();
-            fwrite($txtfile,"$time\n");
-            fwrite($txtfile,"$title\n");
-            fwrite($txtfile,"$target_file\n");
+            fwrite($txtfile,"$time\n");//1
+            fwrite($txtfile,"$title\n");//2
+            fwrite($txtfile,"$target_file\n");//3
             $user=$_SESSION["user"];
             $user.="\n";
-            fwrite($txtfile,$user);
+            fwrite($txtfile,$user);//4
+            fwrite($txtfile,"\n");//5 likes 
+            fwrite($txtfile,"\n");//6 comments
             $usermsg= "The file has been uploaded.";
         } else {
             $usermsg= "Sorry, there was an error uploading your file.";
