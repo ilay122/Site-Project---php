@@ -17,13 +17,16 @@ $path="Images/pegs/";
 $picname= explode("/", $picsrc)[2];
 $picwoebd=explode(".", $picname)[0];
 $txtfile=$path.$picwoebd.".txt";
-$myfile = fopen($txtfile, "a") or die("Unable to open file!");
+$lines = file( $txtfile , FILE_IGNORE_NEW_LINES );
+$comline=$lines[5];
 
 $text=$_GET["text"];
 $text=htmlspecialchars($text, ENT_QUOTES);
 $user=$_SESSION["user"];
 $comment="<div class='comments'> <b> $user</b> $text </div>";
-fwrite($myfile,$comment);
+$comline.=$comment;
+$lines[5] = $comline;
+file_put_contents( $txtfile , implode( "\n", $lines ) );
 }
 else{
     $_SESSION["msg"]="Comment too long !";
